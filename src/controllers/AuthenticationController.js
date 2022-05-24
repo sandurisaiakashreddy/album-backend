@@ -5,8 +5,10 @@ module.exports = {
        try{
         const user =  await User.create(req.body)
         const output  = user.toJSON();
+        console.log('user is registered successfully')
         res.send({
-            user: output,
+             user: output,
+            error: 'Registration successful'
                  })
        }
        catch(err){
