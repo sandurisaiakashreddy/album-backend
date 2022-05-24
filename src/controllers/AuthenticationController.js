@@ -15,4 +15,39 @@ module.exports = {
            })
        }
     },
+    async login(req, res) {
+        try{
+            const {email, password} = req.body
+            const user =  await User.findOne({
+                where:{
+                    email:email
+                }
+            })
+            if(!user){
+                res.status(403).send({
+                    error: 'This Email doesnt exist...'
+                })
+            }
+           
+            const pass = password === user.password
+            console.log(pass)
+            if (!pass)
+            {
+                res.status(403).send({
+                    error: 'Login Information is not correct...'
+                })
+            }
+            const output = user.toJSON()
+            res.send({
+               user: output
+           })
+        }
+           catch(err){
+            console.log(err)
+               res.status(500).send({
+                   
+                   error: 'Something went wrong'
+               })
+           }
+    }
 }
