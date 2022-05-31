@@ -38,6 +38,7 @@ module.exports = {
                 })
                 return
             }
+           
             const pass = password === user.password
             console.log(pass)
             if (!pass)
@@ -47,11 +48,14 @@ module.exports = {
                 })
                 return
             }
+            else {
             const output = user.toJSON()
             res.send({
                user: output,
                token: jwtSignUser(output)
            })
+           return
+        }
         }
            catch(err){
             console.log(err)
